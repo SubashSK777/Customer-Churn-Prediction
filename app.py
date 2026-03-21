@@ -34,7 +34,9 @@ st.markdown("""
 st.markdown("<h1 style='text-align: center; color: #1D9E75;'>💰 Churn Prediction Dashboard</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Predicting Telecom Customer Exit with Machine Learning Workflow.</p>", unsafe_allow_html=True)
 
-# Navigation setup
+# Navigation setup (Spacious Sidebar)
+st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
+st.sidebar.title("🕵️ Step-by-Step Flow")
 steps = [
     "1. Setup & Tools",
     "2. Data Loading & Inspection",
@@ -51,8 +53,9 @@ if 'step_index' not in st.session_state:
 def next_step():
     st.session_state.step_index = min(st.session_state.step_index + 1, len(steps) - 1)
 
-step = st.sidebar.radio("Go to Step:", steps, index=st.session_state.step_index)
+step = st.sidebar.radio("Navigate Workflow:", steps, index=st.session_state.step_index)
 st.session_state.step_index = steps.index(step)
+st.sidebar.markdown("<br><br><br>", unsafe_allow_html=True)
 
 if 'df' not in st.session_state: st.session_state.df = None
 
@@ -63,7 +66,7 @@ if step == "1. Setup & Tools":
     if st.button("🚀 Deploy Libraries"):
         warnings.filterwarnings('ignore')
         sns.set_theme(style="whitegrid", palette="viridis")
-        with st.expander("🔍 Deployment Details", expanded=False):
+        with st.expander("🔍 Deployment Details", expanded=True):
             st.success("✅ All systems go! AI libraries deployed.")
             st.code("import pandas as pd\nfrom xgboost import XGBClassifier\nfrom imblearn.over_sampling import SMOTE")
     
@@ -76,7 +79,7 @@ elif step == "2. Data Loading & Inspection":
         try:
             df = pd.read_csv("churn.csv")
             st.session_state.df = df
-            with st.expander("📊 Data Overview", expanded=False):
+            with st.expander("📊 Data Overview", expanded=True):
                 st.write(f"Dataset comprises **{df.shape[0]}** customers.")
                 st.dataframe(df.head())
                 churn_counts = df['Churn'].value_counts(normalize=True) * 100
@@ -94,7 +97,7 @@ elif step == "3. Visual Forensics (EDA)":
         st.warning("Please load data in Step 2 first.")
     else:
         if st.button("📊 Show Distribution Trio"):
-            with st.expander("📉 Feature Distributions", expanded=False):
+            with st.expander("📉 Feature Distributions", expanded=True):
                 df = st.session_state.df.copy()
                 df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
                 fig, axes = plt.subplots(1, 3, figsize=(18, 6))
@@ -105,7 +108,7 @@ elif step == "3. Visual Forensics (EDA)":
                 st.pyplot(fig)
 
         if st.button("📜 The Contract Curse"):
-            with st.expander("📜 Contract Type Analysis", expanded=False):
+            with st.expander("📜 Contract Type Analysis", expanded=True):
                 fig, ax = plt.subplots(figsize=(10,6))
                 sns.histplot(data=st.session_state.df, x='Contract', hue='Churn', multiple='stack', shrink=.8, palette=['#1D9E75','#E85D24'], ax=ax)
                 st.pyplot(fig)
@@ -130,7 +133,7 @@ elif step == "4. Data Prep & Encoding":
             cat_cols = ['MultipleLines','InternetService','OnlineSecurity', 'OnlineBackup','DeviceProtection','TechSupport', 'StreamingTV','StreamingMovies','Contract','PaymentMethod']
             df = pd.get_dummies(df, columns=cat_cols, drop_first=True)
             st.session_state.df_prepared = df
-            with st.expander("✨ Prep Result", expanded=False):
+            with st.expander("✨ Prep Result", expanded=True):
                 st.success(f"🚀 Dataset expanded to {df.shape[1]} columns. Ready for ML!")
                 st.dataframe(df.head())
 
@@ -144,7 +147,7 @@ elif step == "5. SMOTE Wizardry":
         st.warning("Please scrub data in Step 4.")
     else:
         if st.button("⚖️ Apply SMOTE"):
-            with st.expander("⚖️ Balancing Details", expanded=False):
+            with st.expander("⚖️ Balancing Details", expanded=True):
                 df = st.session_state.df_prepared
                 X = df.drop('Churn', axis=1)
                 y = df['Churn'].astype(int)
@@ -170,7 +173,7 @@ elif step == "6. Model Showdown":
         st.warning("Please apply SMOTE in Step 5.")
     else:
         if st.button("🏎️ Train Models"):
-            with st.expander("🏎️ Training Performance", expanded=False):
+            with st.expander("🏎️ Training Performance", expanded=True):
                 models = {
                     "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
                     "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
@@ -198,7 +201,7 @@ elif step == "7. Verdict & Evaluations":
         st.warning("Please train models in Step 6.")
     else:
         if st.button("🏆 Analyze Champion"):
-            with st.expander("🥇 Evaluation Results", expanded=False):
+            with st.expander("🥇 Evaluation Results", expanded=True):
                 fig, axes = plt.subplots(1, 3, figsize=(20, 5))
                 for i, (name, res) in enumerate(st.session_state.final_models.items()):
                     cm = confusion_matrix(st.session_state.y_test, res['preds'])
