@@ -1,5 +1,11 @@
 <div align="center">
 
+[![Python](https://img.shields.io/badge/Python-3.11%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-red?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Seaborn](https://img.shields.io/badge/Seaborn-Visualization-blueviolet?style=for-the-badge&logo=python&logoColor=white)](https://seaborn.pydata.org/)
+
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=250&section=header&text=Customer%20Churn%20Prediction&fontSize=60&animation=fadeIn&fontAlignY=38&desc=Predicting%20Telecom%20Customer%20Leaving%20Patterns&descAlignY=51&descAlign=62" width="100%" />
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
